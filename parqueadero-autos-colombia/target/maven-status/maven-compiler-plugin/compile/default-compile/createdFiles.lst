@@ -1,0 +1,4 @@
+com\parqueo\model\Vehiculo.class
+com\parqueo\util\ConexionBD.class
+com\parqueo\App.class
+com\parqueo\repository\VehiculoRepository.class
