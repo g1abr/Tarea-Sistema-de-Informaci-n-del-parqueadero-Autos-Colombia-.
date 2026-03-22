@@ -40,8 +40,6 @@ public class Novedad {
     public LocalDateTime getFechaHora() {
         return fechaHora;
     }
-  // MÉTODOS DE BASE DE DATOS
-    // ------------------------
 
     public boolean guardar() {
 

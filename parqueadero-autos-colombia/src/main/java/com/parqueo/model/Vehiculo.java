@@ -81,9 +81,6 @@ public class Vehiculo {
         this.propietario = propietario;
     }
 
-    // -----------------------
-    // MÉTODOS DE BASE DE DATOS
-    // -----------------------
 
     public boolean guardar() {
 

@@ -73,9 +73,6 @@ public class RegistroParqueo {
         this.esMensualidad = esMensualidad;
     }
 
-    // --------------------
-    // MÉTODOS DEL SISTEMA
-    // --------------------
 
     public boolean registrarEntrada() {
 

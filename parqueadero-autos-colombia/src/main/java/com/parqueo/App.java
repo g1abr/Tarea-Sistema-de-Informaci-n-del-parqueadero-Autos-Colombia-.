@@ -19,9 +19,9 @@ public class App {
         int opcion;
 
         do {
-            System.out.println("\n==============================");
+            System.out.println("\n****************************************");
             System.out.println("   SISTEMA PARQUEADERO");
-            System.out.println("==============================");
+            System.out.println("******************************************");
             System.out.println("1. Usuarios");
             System.out.println("2. Vehiculos");
             System.out.println("3. Celdas");
@@ -42,9 +42,7 @@ public class App {
         System.out.println("Sistema cerrado.");
     }
 
-    // =========================
-    // UTILIDADES
-    // =========================
+ // Utilidades del sistema
 
     public static int leerEntero(String mensaje) {
         while (true) {
@@ -52,7 +50,7 @@ public class App {
                 System.out.print(mensaje);
                 return Integer.parseInt(sc.nextLine());
             } catch (Exception e) {
-                System.out.println("⚠️ Número inválido");
+                System.out.println("Número inválido");
             }
         }
     }
@@ -62,7 +60,7 @@ public class App {
             int op = leerEntero("Seleccione opción: ");
             if (op >= min && op <= max)
                 return op;
-            System.out.println("⚠️ Opción fuera de rango");
+            System.out.println("Opción fuera de rango");
         }
     }
 
@@ -72,7 +70,7 @@ public class App {
             String txt = sc.nextLine().trim();
             if (!txt.isEmpty())
                 return txt;
-            System.out.println("⚠️ Campo obligatorio");
+            System.out.println("Campo obligatorio");
         }
     }
 
@@ -82,7 +80,7 @@ public class App {
                 System.out.print("Tipo (CARRO/MOTO): ");
                 return TipoVehiculo.valueOf(sc.nextLine().toUpperCase());
             } catch (Exception e) {
-                System.out.println("⚠️ Tipo inválido");
+                System.out.println("Tipo inválido");
             }
         }
     }
@@ -103,9 +101,7 @@ public class App {
             }
         }
     }
-    // =========================
-    // USUARIOS
-    // =========================
+    // Menú usuarios 
 
     public static void menuUsuarios() {
 
@@ -176,9 +172,7 @@ public class App {
         } while (op != 0);
     }
 
-    // =========================
-    // VEHICULOS
-    // =========================
+// Menú de vehículos 
 
     public static void menuVehiculos() {
 
@@ -263,9 +257,7 @@ public class App {
         } while (op != 0);
     }
 
-    // =========================
-    // CELDAS
-    // =========================
+    // Menú de celdas
 
     public static void menuCeldas() {
 
@@ -290,7 +282,7 @@ public class App {
                             leerTexto("Numero: "),
                             leerTipoCelda());
 
-                    System.out.println(c.guardar() ? "✅ Guardada" : "❌ Error");
+                    System.out.println(c.guardar() ? "Celda guardada exitosamente " : "Hubo un error");
                 }
                 case 2 -> {
                     try {
@@ -299,11 +291,11 @@ public class App {
                                 .toUpperCase();
 
                         if (numero.isEmpty()) {
-                            System.out.println("❌ Debe ingresar un número de celda");
+                            System.out.println("Debe ingresar un número de celda");
                             return;
                         }
                         if (!numero.matches("[A-Z]\\d{2}")) {
-                            System.out.println("Formato inválido (ej: C01)");
+                            System.out.println("Formato inválido (");
                             return;
                         }
 
@@ -311,15 +303,15 @@ public class App {
 
                         if (c != null) {
                             System.out.println("\n CELDA ENCONTRADA");
-                            System.out.println("---------------------");
+                            System.out.println("**********************");
                             System.out.println(c);
-                            System.out.println("---------------------\n");
+                            System.out.println("*********************\n");
                         } else {
                             System.out.println(" No encontrada");
                         }
 
                     } catch (IllegalArgumentException e) {
-                        System.out.println("Error en datos (enum mal guardado en BD)");
+                        System.out.println("Error en datos ");
                     } catch (Exception e) {
                         System.out.println(" Error inesperado");
                         e.printStackTrace();
@@ -334,7 +326,7 @@ public class App {
                             System.out.println(" No hay celdas");
                         } else {
                             System.out.println("\n LISTA DE CELDAS");
-                            System.out.println("====================");
+                            System.out.println("***********************");
 
                             lista.forEach(System.out::println);
 
@@ -388,9 +380,8 @@ public class App {
         } while (op != 0);
     }
 
-    // =========================
-    // PARQUEADERO
-    // =========================
+
+    // Menú del Parqueadero 
     public static void menuControlador() {
 
         int op;
@@ -411,35 +402,32 @@ public class App {
                 case 1 -> {
                     String placa = leerTexto("Placa: ").toUpperCase();
                     System.out.println(controller.procesarEntrada(placa)
-                            ? "✅ Entrada registrada"
-                            : "❌ Error");
+                            ? "Entrada registrada"
+                            : " Error");
                 }
-
-                // 🚙 REGISTRAR SALIDA
                 case 2 -> {
                     try {
                         String placa = leerTexto("Placa: ").toUpperCase();
 
                         boolean ok = controller.procesarSalida(placa);
 
-                        System.out.println(ok ? "✅ Salida registrada"
-                                : "❌ No se pudo registrar");
+                        System.out.println(ok ? " Salida registrada"
+                                : " No se pudo registrar");
 
                     } catch (Exception e) {
-                        System.out.println("❌ Error en salida");
+                        System.out.println("Error en salida");
                         e.printStackTrace();
                     }
                 }
 
-                // 📋 VEHÍCULOS DENTRO
                 case 3 -> {
                     try {
                         var lista = controller.consultarVehiculosDentro();
 
                         if (lista.isEmpty()) {
-                            System.out.println("🚫 No hay vehículos en el parqueadero");
+                            System.out.println("No hay vehículos en el parqueadero");
                         } else {
-                            System.out.println("\n=== VEHÍCULOS DENTRO ===");
+                            System.out.println("\n******** VEHÍCULOS DENTRO *******");
 
                             for (var r : lista) {
                                 System.out.println("----------------------------");
@@ -448,16 +436,15 @@ public class App {
                                 System.out.println("Entrada: " + r.getFechaHoraEntrada());
                             }
 
-                            System.out.println("----------------------------\n");
+                            System.out.println("************\n");
                         }
 
                     } catch (Exception e) {
-                        System.out.println("❌ Error al listar");
+                        System.out.println("Error al listar");
                         e.printStackTrace();
                     }
                 }
 
-                // HISTORIAL
                 case 4 -> {
                     try {
                         String placa = leerTexto("Placa: ").toUpperCase();
@@ -465,9 +452,9 @@ public class App {
                         var lista = controller.consultarHistorial(placa);
 
                         if (lista.isEmpty()) {
-                            System.out.println("🚫 Sin historial");
+                            System.out.println("Sin historial");
                         } else {
-                            System.out.println("\n=== HISTORIAL ===");
+                            System.out.println("\n************ HISTORIAL ***********");
 
                             for (var r : lista) {
                                 System.out.println("----------------------------");
@@ -475,16 +462,15 @@ public class App {
                                 System.out.println("Salida : " + r.getFechaHoraSalida());
                             }
 
-                            System.out.println("----------------------------\n");
+                            System.out.println("***********\n");
                         }
 
                     } catch (Exception e) {
-                        System.out.println("❌ Error en historial");
+                        System.out.println("Error en historial");
                         e.printStackTrace();
                     }
                 }
 
-                // ⚠️ NOVEDAD
                 case 5 -> {
                     try {
                         String placa = leerTexto("Placa: ").toUpperCase();

@@ -55,7 +55,6 @@ public class Celda {
         this.estado = estado;
     }
 
-    // MÉTODOS DEL SISTEMA
 
     public boolean guardar() {
 

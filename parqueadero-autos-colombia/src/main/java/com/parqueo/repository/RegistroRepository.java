@@ -14,10 +14,6 @@ import com.parqueo.util.ConexionBD;
 
 public class RegistroRepository {
 
-    // ----------------------------
-    // REGISTRAR ENTRADA
-    // ----------------------------
-
     public void registrarEntrada(RegistroParqueo registro) {
 
         String sql = """
@@ -39,9 +35,6 @@ public class RegistroRepository {
         }
     }
 
-    // ----------------------------
-    // REGISTRAR SALIDA
-    // ----------------------------
 
     public boolean registrarSalida(RegistroParqueo registro) {
 
@@ -68,9 +61,6 @@ public class RegistroRepository {
         return false;
     }
 
-    // ----------------------------
-    // VEHICULOS ACTUALMENTE EN PARQUEADERO
-    // ----------------------------
 
     public List<RegistroParqueo> listarActivos() {
 
@@ -96,12 +86,10 @@ public class RegistroRepository {
                 r.setFechaHoraEntrada(
                         rs.getTimestamp("fecha_hora_entrada").toLocalDateTime());
 
-                // 🔥 VEHICULO
                 Vehiculo v = new Vehiculo();
                 v.setPlaca(rs.getString("placa"));
                 r.setVehiculo(v);
 
-                // 🔥 CELDA
                 Celda c = new Celda();
                 c.setNumeroCelda(rs.getString("numero_celda"));
                 r.setCelda(c);
@@ -115,9 +103,6 @@ public class RegistroRepository {
 
         return lista;
     }
-    // ----------------------------
-    // BUSCAR REGISTRO ACTIVO
-    // ----------------------------
 
     public RegistroParqueo buscarRegistroActivo(int idVehiculo) {
 
@@ -161,9 +146,7 @@ public class RegistroRepository {
 
         return null;
     }
-    // ----------------------------
-    // HISTORIAL DE VEHICULO
-    // ----------------------------
+    
 
     public List<RegistroParqueo> historialVehiculo(int idVehiculo) {
 
