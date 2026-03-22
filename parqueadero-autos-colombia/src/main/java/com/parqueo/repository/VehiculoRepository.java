@@ -96,8 +96,7 @@ public class VehiculoRepository {
                 v.setModelo(rs.getString("modelo"));
                 v.setColor(rs.getString("color"));
 
-                v.setTipo(TipoVehiculo.valueOf(rs.getString("tipo").toUpperCase()));
-
+                v.setTipo(TipoVehiculo.valueOf(rs.getString("tipo")));
                 Usuario u = new Usuario();
                 u.setId(rs.getInt("id_usuario"));
                 u.setNombreCompleto(rs.getString("nombre_completo"));
