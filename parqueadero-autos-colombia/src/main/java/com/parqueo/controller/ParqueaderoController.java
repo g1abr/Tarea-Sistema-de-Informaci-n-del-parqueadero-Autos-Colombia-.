@@ -32,7 +32,7 @@ public class ParqueaderoController {
     // ----------------------------------------
     // PROCESAR ENTRADA
     // ----------------------------------------
- public boolean procesarEntrada(String placa) {
+    public boolean procesarEntrada(String placa) {
 
         try {
 
@@ -75,7 +75,7 @@ public class ParqueaderoController {
     // PROCESAR SALIDA
     // ----------------------------------------
 
-   public boolean procesarSalida(String placa) {
+    public boolean procesarSalida(String placa) {
 
         try {
 
@@ -168,9 +168,11 @@ public class ParqueaderoController {
 
             RegistroParqueo registro = historial.get(0);
 
-            Novedad novedad = new Novedad(
-                    registro
-            );
+            Novedad novedad = new Novedad(registro);
+
+            // 🔥 ESTO TE FALTABA
+            novedad.setDescripcion(descripcion);
+            novedad.setFechaHora(LocalDateTime.now());
 
             if (novedad.guardar()) {
                 return novedad;
@@ -183,7 +185,6 @@ public class ParqueaderoController {
             return null;
         }
     }
-
     // ----------------------------------------
     // CONSULTAR HISTORIAL
     // ----------------------------------------

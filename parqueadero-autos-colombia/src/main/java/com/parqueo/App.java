@@ -490,12 +490,14 @@ public class App {
                         String placa = leerTexto("Placa: ").toUpperCase();
                         String desc = leerTexto("Descripción: ");
 
-                        controller.registrarNovedad(placa, desc);
+                        var novedad = controller.registrarNovedad(placa, desc);
 
-                        System.out.println("✅ Novedad registrada");
+                        System.out.println(novedad != null
+                                ? "Novedad registrada"
+                                : "Error al registrar");
 
                     } catch (Exception e) {
-                        System.out.println("❌ Error en novedad");
+                        System.out.println(" Error en novedad");
                         e.printStackTrace();
                     }
                 }
