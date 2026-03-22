@@ -121,7 +121,20 @@ public class Vehiculo {
             return null;
         }
     }
- public List<RegistroParqueo> obtenerHistorial() {
+
+    public static List<Vehiculo> listarTodos() {
+
+        VehiculoRepository repo = new VehiculoRepository();
+
+        try {
+            return repo.listarTodos();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
+    public List<RegistroParqueo> obtenerHistorial() {
 
         VehiculoRepository repo = new VehiculoRepository();
 
@@ -132,13 +145,25 @@ public class Vehiculo {
             return new ArrayList<>();
         }
     }
-    
+
+    public static boolean eliminar(String placa) {
+
+        VehiculoRepository repo = new VehiculoRepository();
+
+        try {
+            return repo.eliminar(placa);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     @Override
     public String toString() {
-        return "Vehiculo{" +
-                "placa='" + placa + '\'' +
-                ", marca='" + marca + '\'' +
-                ", tipo='" + tipo + '\'' +
-                '}';
+        return "\n🚗 VEHÍCULO\n" +
+           "---------------------\n" +
+           "Placa: " + placa + "\n" +
+           "Marca: " + marca + "\n" +
+           "Tipo: " + tipo + "\n" ;
     }
 }

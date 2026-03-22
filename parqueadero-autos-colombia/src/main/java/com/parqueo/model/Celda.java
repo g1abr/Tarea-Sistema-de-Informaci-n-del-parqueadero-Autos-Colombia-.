@@ -13,12 +13,14 @@ public class Celda {
     private EstadoCelda estado;
 
     public Celda() {
+        this.estado = EstadoCelda.Disponible;
+
     }
 
     public Celda(String numeroCelda, TipoCelda tipoCelda) {
         this.numeroCelda = numeroCelda;
         this.tipoCelda = tipoCelda;
-        this.estado = EstadoCelda.DISPONIBLE;
+        this.estado = EstadoCelda.Disponible;
     }
 
     public int getId() {
@@ -53,36 +55,101 @@ public class Celda {
         this.estado = estado;
     }
 
-    // ------------------------
     // MÉTODOS DEL SISTEMA
-    // ------------------------
 
-    public void ocupar() {
+    public boolean guardar() {
 
         CeldaRepository repo = new CeldaRepository();
 
         try {
-            repo.ocupar(this);
-            this.estado = EstadoCelda.OCUPADA;
+            repo.guardar(this);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean actualizar() {
+
+        CeldaRepository repo = new CeldaRepository();
+
+        try {
+            return repo.actualizar(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean eliminar(int idCelda) {
+
+        CeldaRepository repo = new CeldaRepository();
+
+        try {
+            return repo.eliminar(idCelda);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static Celda buscarPorId(int id) {
+
+        CeldaRepository repo = new CeldaRepository();
+
+        try {
+            return repo.buscarPorId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static List<Celda> listarTodas() {
+
+        CeldaRepository repo = new CeldaRepository();
+
+        try {
+            return repo.listarTodas();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static Celda buscarPorNumero(String numero) {
+
+        CeldaRepository repo = new CeldaRepository();
+
+        try {
+            return repo.buscarPorNumero(numero);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public void ocupar() {
+        try {
+            new CeldaRepository().ocupar(this);
+            this.estado = EstadoCelda.Ocupada;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void liberar() {
-
-        CeldaRepository repo = new CeldaRepository();
-
         try {
-            repo.liberar(this);
-            this.estado = EstadoCelda.DISPONIBLE;
+            new CeldaRepository().liberar(this);
+            this.estado = EstadoCelda.Disponible;
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public boolean estaDisponible() {
-        return estado == EstadoCelda.DISPONIBLE;
+        return estado == EstadoCelda.Disponible;
     }
 
     public static List<Celda> buscarDisponibles(TipoCelda tipo) {
@@ -99,11 +166,11 @@ public class Celda {
 
     @Override
     public String toString() {
-        return "Celda{" +
-                "numeroCelda='" + numeroCelda + '\'' +
-                ", tipoCelda=" + tipoCelda +
-                ", estado=" + estado +
-                '}';
+        return "Celda:" +
+                "\nNúmero : " + numeroCelda +
+                "\nTipo   : " + tipoCelda +
+                "\nEstado : " + estado + 
+                "\n*****************";
     }
 
 }

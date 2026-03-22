@@ -16,8 +16,8 @@ public class RegistroParqueo {
 
     private boolean esMensualidad;
 
-
-    public RegistroParqueo() {}
+    public RegistroParqueo() {
+    }
 
     public RegistroParqueo(Vehiculo vehiculo, Celda celda) {
         this.vehiculo = vehiculo;
@@ -25,25 +25,53 @@ public class RegistroParqueo {
         this.fechaHoraEntrada = LocalDateTime.now();
     }
 
-    public int getId() { return id; }
-    public void setId(int id) { this.id = id; }
+    public int getId() {
+        return id;
+    }
 
-    public Vehiculo getVehiculo() { return vehiculo; }
-    public void setVehiculo(Vehiculo vehiculo) { this.vehiculo = vehiculo; }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-    public Celda getCelda() { return celda; }
-    public void setCelda(Celda celda) { this.celda = celda; }
+    public Vehiculo getVehiculo() {
+        return vehiculo;
+    }
 
-    public LocalDateTime getFechaHoraEntrada() { return fechaHoraEntrada; }
-    public void setFechaHoraEntrada(LocalDateTime fechaHoraEntrada) { this.fechaHoraEntrada = fechaHoraEntrada; }
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
 
-    public LocalDateTime getFechaHoraSalida() { return fechaHoraSalida; }
-    public void setFechaHoraSalida(LocalDateTime fechaHoraSalida) { this.fechaHoraSalida = fechaHoraSalida; }
+    public Celda getCelda() {
+        return celda;
+    }
 
-    public boolean isEsMensualidad() { return esMensualidad; }
-    public void setEsMensualidad(boolean esMensualidad) { this.esMensualidad = esMensualidad; }
+    public void setCelda(Celda celda) {
+        this.celda = celda;
+    }
 
-    
+    public LocalDateTime getFechaHoraEntrada() {
+        return fechaHoraEntrada;
+    }
+
+    public void setFechaHoraEntrada(LocalDateTime fechaHoraEntrada) {
+        this.fechaHoraEntrada = fechaHoraEntrada;
+    }
+
+    public LocalDateTime getFechaHoraSalida() {
+        return fechaHoraSalida;
+    }
+
+    public void setFechaHoraSalida(LocalDateTime fechaHoraSalida) {
+        this.fechaHoraSalida = fechaHoraSalida;
+    }
+
+    public boolean isEsMensualidad() {
+        return esMensualidad;
+    }
+
+    public void setEsMensualidad(boolean esMensualidad) {
+        this.esMensualidad = esMensualidad;
+    }
 
     // --------------------
     // MÉTODOS DEL SISTEMA
@@ -67,6 +95,7 @@ public class RegistroParqueo {
         RegistroRepository repo = new RegistroRepository();
 
         try {
+            this.fechaHoraSalida = LocalDateTime.now();
             return repo.registrarSalida(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -76,7 +105,8 @@ public class RegistroParqueo {
 
     public long calcularTiempoEstadia() {
 
-        if (fechaHoraSalida == null) return 0;
+        if (fechaHoraSalida == null)
+            return 0;
 
         return Duration.between(fechaHoraEntrada, fechaHoraSalida).toHours();
     }
@@ -85,7 +115,11 @@ public class RegistroParqueo {
 
         long horas = calcularTiempoEstadia();
 
-        double tarifaHora = 2000; // ejemplo
+        if (horas == 0) {
+            horas = 1;
+        }
+
+        double tarifaHora = 2000;
 
         return horas * tarifaHora;
     }
@@ -95,6 +129,12 @@ public class RegistroParqueo {
     }
 
     public void agregarNovedad(String novedad) {
-        System.out.println("Novedad: " + novedad);
+
+        System.out.println("----- NOVEDAD REGISTRADA -----");
+        System.out.println("Vehiculo: " + vehiculo.getPlaca());
+        System.out.println("Celda: " + celda.getNumeroCelda());
+        System.out.println("Detalle: " + novedad);
+        System.out.println("Fecha: " + LocalDateTime.now());
     }
+
 }

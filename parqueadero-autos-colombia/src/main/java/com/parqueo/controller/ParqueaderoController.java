@@ -32,8 +32,7 @@ public class ParqueaderoController {
     // ----------------------------------------
     // PROCESAR ENTRADA
     // ----------------------------------------
-
-    public boolean procesarEntrada(String placa, TipoVehiculo tipoVehiculo) {
+ public boolean procesarEntrada(String placa) {
 
         try {
 
@@ -43,25 +42,28 @@ public class ParqueaderoController {
                 return false;
             }
 
-            Celda celda = buscarCeldaDisponible(tipoVehiculo);
+            TipoVehiculo tipoVehiculo = vehiculo.getTipo();
 
-            if (celda == null) {
+            TipoCelda tipoCelda = TipoCelda.valueOf(tipoVehiculo.name());
+
+            List<Celda> disponibles = repositorioCeldas.buscarDisponibles(tipoCelda);
+
+            if (disponibles.isEmpty()) {
                 return false;
             }
 
-            RegistroParqueo registro = new RegistroParqueo();
+            Celda celda = disponibles.get(0);
 
+            RegistroParqueo registro = new RegistroParqueo();
             registro.setVehiculo(vehiculo);
             registro.setCelda(celda);
             registro.setFechaHoraEntrada(LocalDateTime.now());
 
-            boolean guardado = registro.registrarEntrada();
+            repositorioRegistros.registrarEntrada(registro);
 
-            if (guardado) {
-                celda.ocupar();
-            }
+            celda.ocupar();
 
-            return guardado;
+            return true;
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,7 +75,7 @@ public class ParqueaderoController {
     // PROCESAR SALIDA
     // ----------------------------------------
 
-    public boolean procesarSalida(String placa) {
+   public boolean procesarSalida(String placa) {
 
         try {
 
@@ -95,7 +97,7 @@ public class ParqueaderoController {
 
             boolean salida = registro.registrarSalida();
 
-            if (salida) {
+            if (salida && registro.getCelda() != null) {
                 registro.getCelda().liberar();
             }
 
@@ -106,7 +108,6 @@ public class ParqueaderoController {
             return false;
         }
     }
-
     // ----------------------------------------
     // CONSULTAR VEHICULOS DENTRO
     // ----------------------------------------

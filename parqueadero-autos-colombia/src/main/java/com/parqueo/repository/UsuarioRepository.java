@@ -129,6 +129,21 @@ public class UsuarioRepository {
         return lista;
     }
 
+    public boolean eliminar(int id) throws SQLException {
+
+        String sql = "DELETE FROM usuarios WHERE id_usuario = ?";
+
+        try (Connection conn = ConexionBD.getConnection();
+                PreparedStatement stmt = conn.prepareStatement(sql)) {
+
+            stmt.setInt(1, id);
+
+            int filas = stmt.executeUpdate();
+
+            return filas > 0;
+        }
+    }
+
     private Usuario mapearUsuario(ResultSet rs) throws SQLException {
 
         Usuario u = new Usuario();

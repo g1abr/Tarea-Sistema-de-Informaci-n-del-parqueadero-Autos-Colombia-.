@@ -38,7 +38,6 @@ public class Usuario {
         this.id = id;
     }
 
-
     public String getIdentificacion() {
         return identificacion;
     }
@@ -46,7 +45,6 @@ public class Usuario {
     public void setIdentificacion(String identificacion) {
         this.identificacion = identificacion;
     }
-
 
     public String getNombreCompleto() {
         return nombreCompleto;
@@ -56,7 +54,6 @@ public class Usuario {
         this.nombreCompleto = nombreCompleto;
     }
 
-
     public String getTelefono() {
         return telefono;
     }
@@ -64,7 +61,6 @@ public class Usuario {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
 
     public String getEmail() {
         return email;
@@ -74,7 +70,6 @@ public class Usuario {
         this.email = email;
     }
 
-
     public String getDireccion() {
         return direccion;
     }
@@ -82,7 +77,6 @@ public class Usuario {
     public void setDireccion(String direccion) {
         this.direccion = direccion;
     }
-
 
     public LocalDateTime getFechaRegistro() {
         return fechaRegistro;
@@ -121,12 +115,48 @@ public class Usuario {
         }
     }
 
+    public static Usuario buscarPorId(int id) {
+
+        UsuarioRepository repo = new UsuarioRepository();
+
+        try {
+            return repo.buscarPorId(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static List<Usuario> listar() {
+
+        UsuarioRepository repo = new UsuarioRepository();
+
+        try {
+            return repo.listarTodos();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
+
     public boolean actualizar() {
 
         UsuarioRepository repo = new UsuarioRepository();
 
         try {
             return repo.actualizar(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public static boolean eliminar(int id) {
+
+        UsuarioRepository repo = new UsuarioRepository();
+
+        try {
+            return repo.eliminar(id);
         } catch (Exception e) {
             e.printStackTrace();
             return false;
