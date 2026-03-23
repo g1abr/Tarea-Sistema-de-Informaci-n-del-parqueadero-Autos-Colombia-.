@@ -134,8 +134,12 @@ public class VehiculoRepository {
                 v.setMarca(rs.getString("marca"));
                 v.setModelo(rs.getString("modelo"));
                 v.setColor(rs.getString("color"));
+                String tipoBD = rs.getString("tipo");
 
-                v.setTipo(TipoVehiculo.valueOf(rs.getString("tipo").toUpperCase()));
+                tipoBD = tipoBD.substring(0, 1).toUpperCase() +
+                        tipoBD.substring(1).toLowerCase();
+
+                v.setTipo(TipoVehiculo.valueOf(tipoBD));
 
                 Usuario u = new Usuario();
                 u.setId(rs.getInt("id_usuario"));

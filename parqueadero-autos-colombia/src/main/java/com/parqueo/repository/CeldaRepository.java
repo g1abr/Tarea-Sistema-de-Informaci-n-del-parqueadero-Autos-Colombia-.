@@ -51,7 +51,7 @@ public class CeldaRepository {
 
     public boolean eliminar(int idCelda) throws SQLException {
 
-        String sql = "DELETE FROxM celdas WHERE id_celda = ?";
+        String sql = "DELETE FROM celdas WHERE id_celda = ?";
 
         try (Connection conn = ConexionBD.getConnection();
                 PreparedStatement stmt = conn.prepareStatement(sql)) {

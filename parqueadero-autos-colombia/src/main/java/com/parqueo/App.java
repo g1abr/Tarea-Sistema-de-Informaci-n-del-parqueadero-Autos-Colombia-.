@@ -78,7 +78,7 @@ public class App {
         while (true) {
             try {
                 System.out.print("Tipo (CARRO/MOTO): ");
-                return TipoVehiculo.valueOf(sc.nextLine().toUpperCase());
+                return TipoVehiculo.valueOf(sc.nextLine());
             } catch (Exception e) {
                 System.out.println("Tipo inválido");
             }

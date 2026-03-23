@@ -157,7 +157,7 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        return "\n🚗 VEHÍCULO\n" +
+        return "\n VEHÍCULO\n" +
            "---------------------\n" +
            "Placa: " + placa + "\n" +
            "Marca: " + marca + "\n" +
