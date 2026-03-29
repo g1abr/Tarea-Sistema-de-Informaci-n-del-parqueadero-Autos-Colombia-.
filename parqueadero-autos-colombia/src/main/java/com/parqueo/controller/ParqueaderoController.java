@@ -10,7 +10,6 @@ import com.parqueo.model.Vehiculo;
 
 import com.parqueo.model.Enum.TipoCelda;
 import com.parqueo.model.Enum.TipoVehiculo;
-
 import com.parqueo.repository.CeldaRepository;
 
 import com.parqueo.repository.RegistroRepository;
@@ -21,14 +20,16 @@ public class ParqueaderoController {
     private VehiculoRepository repositorioVehiculos;
     private RegistroRepository repositorioRegistros;
     private CeldaRepository repositorioCeldas;
+    private PagoController pagoController;
 
     public ParqueaderoController() {
 
         repositorioVehiculos = new VehiculoRepository();
         repositorioRegistros = new RegistroRepository();
         repositorioCeldas = new CeldaRepository();
-    }
+        pagoController = new PagoController();
 
+    }
 
     public boolean procesarEntrada(String placa) {
 
@@ -37,6 +38,11 @@ public class ParqueaderoController {
             Vehiculo vehiculo = repositorioVehiculos.buscarPorPlaca(placa);
 
             if (vehiculo == null) {
+                return false;
+            }
+
+            if (!pagoController.tieneMensualidadActiva(placa)) {
+                System.out.println("Vehículo sin mensualidad activa");
                 return false;
             }
 
@@ -68,7 +74,6 @@ public class ParqueaderoController {
             return false;
         }
     }
-
 
     public boolean procesarSalida(String placa) {
 
@@ -104,7 +109,6 @@ public class ParqueaderoController {
         }
     }
 
-
     public List<RegistroParqueo> consultarVehiculosDentro() {
 
         try {
@@ -114,8 +118,6 @@ public class ParqueaderoController {
             return null;
         }
     }
-
-
 
     public Celda buscarCeldaDisponible(TipoVehiculo tipoVehiculo) {
 
@@ -171,7 +173,6 @@ public class ParqueaderoController {
             return null;
         }
     }
-   
 
     public List<RegistroParqueo> consultarHistorial(String placa) {
 
