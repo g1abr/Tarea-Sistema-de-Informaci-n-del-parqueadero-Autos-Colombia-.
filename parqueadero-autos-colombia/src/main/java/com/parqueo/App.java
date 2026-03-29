@@ -3,6 +3,7 @@ package com.parqueo;
 import java.util.List;
 import java.util.Scanner;
 
+import com.parqueo.controller.PagoController;
 import com.parqueo.controller.ParqueaderoController;
 import com.parqueo.model.*;
 import com.parqueo.model.Enum.TipoCelda;
@@ -26,15 +27,18 @@ public class App {
             System.out.println("2. Vehiculos");
             System.out.println("3. Celdas");
             System.out.println("4. Parqueadero");
+            System.out.println("5. Pagos");
+
             System.out.println("0. Salir");
 
-            opcion = leerOpcion(0, 4);
+            opcion = leerOpcion(0, 5);
 
             switch (opcion) {
                 case 1 -> menuUsuarios();
                 case 2 -> menuVehiculos();
                 case 3 -> menuCeldas();
                 case 4 -> menuControlador();
+                case 5 -> menuPagos();
             }
 
         } while (opcion != 0);
@@ -42,7 +46,7 @@ public class App {
         System.out.println("Sistema cerrado.");
     }
 
- // Utilidades del sistema
+    // Utilidades del sistema
 
     public static int leerEntero(String mensaje) {
         while (true) {
@@ -101,7 +105,7 @@ public class App {
             }
         }
     }
-    // Menú usuarios 
+    // Menú usuarios
 
     public static void menuUsuarios() {
 
@@ -172,7 +176,7 @@ public class App {
         } while (op != 0);
     }
 
-// Menú de vehículos 
+    // Menú de vehículos
 
     public static void menuVehiculos() {
 
@@ -380,8 +384,7 @@ public class App {
         } while (op != 0);
     }
 
-
-    // Menú del Parqueadero 
+    // Menú del Parqueadero
     public static void menuControlador() {
 
         int op;
@@ -487,6 +490,140 @@ public class App {
                         e.printStackTrace();
                     }
                 }
+            }
+
+        } while (op != 0);
+    }
+
+    // -----------------------------
+    // MENÚ PAGOS
+    // -----------------------------
+    public static void menuPagos() {
+
+        int op;
+        PagoController controller = new PagoController();
+
+        do {
+
+            System.out.println("\n----- MODULO PAGOS -----");
+            System.out.println("1. Registrar pago mensualidad");
+            System.out.println("2. Consultar pagos por placa");
+            System.out.println("3. Listar pagos activos");
+            System.out.println("4. Listar pagos vencidos");
+            System.out.println("5. Listar todos los pagos");
+            System.out.println("0. Volver");
+
+            op = leerOpcion(0, 5);
+
+            switch (op) {
+
+                // Registrar pago
+                case 1 -> {
+
+                    try {
+
+                        String placa = leerTexto("Placa: ").toUpperCase();
+                        double valor = leerEntero("Valor: ");
+
+                        boolean ok = controller.registrarPago(placa, valor);
+
+                        System.out.println(ok
+                                ? "Pago registrado correctamente"
+                                : "Error al registrar pago");
+
+                    } catch (Exception e) {
+                        System.out.println("Error al registrar pago");
+                        e.printStackTrace();
+                    }
+                }
+
+                // Consultar pagos por placa
+                case 2 -> {
+
+                    try {
+
+                        String placa = leerTexto("Placa: ").toUpperCase();
+
+                        List<Pago> lista = controller.consultarPagos(placa);
+
+                        if (lista == null || lista.isEmpty()) {
+                            System.out.println("No hay pagos");
+                        } else {
+
+                            System.out.println("\n***** HISTORIAL PAGOS *****");
+
+                            lista.forEach(System.out::println);
+                        }
+
+                    } catch (Exception e) {
+                        System.out.println("Error al consultar pagos");
+                        e.printStackTrace();
+                    }
+                }
+
+                // Listar activos
+                case 3 -> {
+
+                    try {
+
+                        List<Pago> lista = controller.listarActivos();
+
+                        if (lista.isEmpty()) {
+                            System.out.println("No hay pagos activos");
+                        } else {
+
+                            System.out.println("\n***** PAGOS ACTIVOS *****");
+
+                            lista.forEach(System.out::println);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Listar vencidos
+                case 4 -> {
+
+                    try {
+
+                        List<Pago> lista = controller.listarVencidos();
+
+                        if (lista.isEmpty()) {
+                            System.out.println("No hay pagos vencidos");
+                        } else {
+
+                            System.out.println("\n***** PAGOS VENCIDOS *****");
+
+                            lista.forEach(System.out::println);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                // Listar todos
+                case 5 -> {
+
+                    try {
+
+                        List<Pago> lista = controller.listarPagos();
+
+                        if (lista.isEmpty()) {
+                            System.out.println("No hay pagos");
+                        } else {
+
+                            System.out.println("\n***** TODOS LOS PAGOS *****");
+
+                            lista.forEach(System.out::println);
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
             }
 
         } while (op != 0);

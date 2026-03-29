@@ -28,8 +28,6 @@ public class Usuario {
         this.fechaRegistro = LocalDateTime.now();
     }
 
-    // GETTERS Y SETTERS
-
     public int getId() {
         return id;
     }

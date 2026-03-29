@@ -29,9 +29,7 @@ public class ParqueaderoController {
         repositorioCeldas = new CeldaRepository();
     }
 
-    // ----------------------------------------
-    // PROCESAR ENTRADA
-    // ----------------------------------------
+
     public boolean procesarEntrada(String placa) {
 
         try {
@@ -71,9 +69,6 @@ public class ParqueaderoController {
         }
     }
 
-    // ----------------------------------------
-    // PROCESAR SALIDA
-    // ----------------------------------------
 
     public boolean procesarSalida(String placa) {
 
@@ -108,9 +103,7 @@ public class ParqueaderoController {
             return false;
         }
     }
-    // ----------------------------------------
-    // CONSULTAR VEHICULOS DENTRO
-    // ----------------------------------------
+
 
     public List<RegistroParqueo> consultarVehiculosDentro() {
 
@@ -122,9 +115,7 @@ public class ParqueaderoController {
         }
     }
 
-    // ----------------------------------------
-    // BUSCAR CELDA DISPONIBLE
-    // ----------------------------------------
+
 
     public Celda buscarCeldaDisponible(TipoVehiculo tipoVehiculo) {
 
@@ -146,10 +137,6 @@ public class ParqueaderoController {
         }
     }
 
-    // ----------------------------------------
-    // REGISTRAR NOVEDAD
-    // ----------------------------------------
-
     public Novedad registrarNovedad(String placa, String descripcion) {
 
         try {
@@ -170,7 +157,6 @@ public class ParqueaderoController {
 
             Novedad novedad = new Novedad(registro);
 
-            // 🔥 ESTO TE FALTABA
             novedad.setDescripcion(descripcion);
             novedad.setFechaHora(LocalDateTime.now());
 
@@ -185,9 +171,7 @@ public class ParqueaderoController {
             return null;
         }
     }
-    // ----------------------------------------
-    // CONSULTAR HISTORIAL
-    // ----------------------------------------
+   
 
     public List<RegistroParqueo> consultarHistorial(String placa) {
 
